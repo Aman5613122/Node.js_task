@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+      table{
+        margin-top: 7%;
+      }
+
+    </style>
+  </head>
+  <body>
+      <%- include("./Enav.ejs") -%>
+
+      <% if(detail.length != 0) {%>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Job Title</th>
+            <th scope="col">Job Description</th>
+            <th scope="col">Type</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% detail.forEach(function(item){ %>
+            <tr>
+                <td><%= item.title %></td>
+                <td><%= item.description %></td>
+                <td><%= item.tag %></td>
+                <td> <a href="/employee/delete/<%= item._id%>"><button>Delete</button></a></td>
+            </tr>
+            <% }) %> 
+        </tbody>
+      </table>
+      <%}%>
+    <% if(detail.length == 0) { %>
+        <h1 style="margin-top: 6%;">Nothing found!</h1>
+        <% } %> 
+        
+
+        <script>
+            $(document).ready(function () {
+  $('#dtBasicExample').DataTable();
+  $('.dataTables_length').addClass('bs-select');
+});
+        </script>
+  </body>
+</html>

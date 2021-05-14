@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+      table{
+        margin-top: 7%;
+      }
+
+    </style>
+  </head>
+  <body>
+      <%- include("./Cnav.ejs") -%>
+        <h2 style="text-align: center;padding-top: 30px;">Accepted Jobs</h2>
+      <% if(detail.length != 0) {%>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Job Title</th>
+            <th scope="col">Job Description</th>
+            <th scope="col">Type</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% detail.forEach(function(item){ %>
+            <tr>
+                <td><%= item.title %></td>
+                <td><%= item.description %></td>
+                <td><%= item.tag %></td>
+                <td>
+                  <select onchange="javascript:handleSelect(this)">
+                  <option value="/candidate/acc/<%= item._id %>">Accepted</option>
+                  <option value="/candidate/rec/<%= item._id %>">Received</option>
+                  <option value="/candidate/rej/<%= item._id %>">Rejected</option>
+                </select>
+              </td>
+            </tr>
+            <% }) %> 
+        </tbody>
+      </table>
+      <%}%>
+    <% if(detail.length == 0) { %>
+        <h1 style="margin-top: 6%;">Nothing found!</h1>
+        <% } %> 
+        
+
+        <script>
+            $(document).ready(function () {
+  $('#dtBasicExample').DataTable();
+  $('.dataTables_length').addClass('bs-select');
+});
+        </script>
+        <script>
+          function handleSelect(elm)
+            {
+              window.location = elm.value;
+            }
+        </script>
+  </body>
+</html>
